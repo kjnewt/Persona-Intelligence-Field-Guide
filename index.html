@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Persona Intelligence Field Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{--navy:#003054;--blue:#0063A3;--gold:#FBAD26;--ink:#1e2a35;--muted:#5c6d7c;--mist:#f4f7fa;--line:#d7e2eb;--white:#fff;--shadow:0 18px 45px rgba(0,48,84,.14);--green:#197a4c}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;font-family:"Open Sans",Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.42}
+button,select,textarea,input{font:inherit;font-family:inherit}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:16px}
+.app{border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;background:#fff}
+.hero{background:linear-gradient(135deg,var(--navy),#064f83);color:#fff;padding:18px 22px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;border:36px solid rgba(251,173,38,.16);right:-58px;top:-92px}
+.kicker{font-weight:800;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);position:relative;z-index:1}
+h1{font-size:32px;line-height:1;margin:5px 0 6px;letter-spacing:-.03em;position:relative;z-index:1}
+.hero p{margin:0;max-width:820px;font-size:13px;color:#e9f3fb;position:relative;z-index:1}
+.toolbar{display:block;padding:12px 14px;border-bottom:1px solid var(--line);background:#fbfdfe}
+.industries{display:flex;gap:6px;flex-wrap:wrap}
+.industry-btn{border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:800;border-radius:999px;padding:8px 11px;font-size:12px;cursor:pointer}
+.toc-btn{width:100%;border:3px solid var(--gold);background:linear-gradient(135deg,var(--navy),#064f83);color:#fff;font-weight:800;border-radius:18px;padding:18px 20px;font-size:14px;cursor:pointer;text-align:left;box-shadow:0 12px 26px rgba(0,48,84,.22);display:flex;align-items:center;justify-content:space-between;gap:18px;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.toc-btn:hover{background:linear-gradient(135deg,var(--blue),#0877bb);border-color:var(--gold);transform:translateY(-2px);box-shadow:0 16px 30px rgba(0,48,84,.26)}
+.toc-btn .toc-copy{display:block}
+.toc-btn .toc-eyebrow{display:block;color:var(--gold);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:3px}.toc-btn .toc-title{display:block;font-size:20px;line-height:1.15;letter-spacing:.01em}
+.toc-btn .toc-subtitle{display:block;max-width:760px;font-size:12px;line-height:1.45;font-weight:600;color:#dceaf4;margin-top:5px}
+.toc-btn .toc-arrow{flex:0 0 auto;display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:var(--gold);color:var(--navy);font-size:34px;font-weight:800;line-height:1;box-shadow:0 0 0 7px rgba(251,173,38,.16);animation:arrowNudge 2.4s ease-in-out infinite}
+.industry-btn.active{background:var(--gold);border-color:var(--gold)}
+.nav-top{display:block;width:100%;margin-top:10px}
+.book{padding:16px;background:radial-gradient(circle at top left,rgba(251,173,38,.10),transparent 18rem),#f8fbfd}
+.book-shell{display:grid;grid-template-columns:1fr 1fr;gap:14px;min-height:500px}
+.page{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 26px rgba(0,48,84,.08);padding:18px;position:relative;overflow:hidden}
+.page.left{border-right:5px solid rgba(0,99,163,.10)}
+.page.right{border-left:5px solid rgba(251,173,38,.22)}
+.page-label{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.role{color:var(--blue);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+h2{margin:3px 0 5px;color:var(--navy);font-size:30px;line-height:1.03}
+.summary{margin:0 0 14px;color:var(--muted);font-size:13px}
+.section{background:var(--mist);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px}
+.section h3{margin:0 0 7px;color:var(--navy);font-size:14px}
+ul{margin:0;padding-left:18px}li{margin:3px 0;font-size:13px}
+.quote{margin-top:10px;background:var(--navy);color:#fff;border-radius:14px;padding:13px;font-size:13px}
+.quote b{display:block;color:var(--gold);font-size:10px;letter-spacing:.11em;text-transform:uppercase;margin-bottom:5px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{display:inline-flex;border:1px solid #c7ddeb;background:#e8f2f9;color:var(--navy);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}
+.chip.primary{background:#fff4d9;border-color:var(--gold)}
+.starter{background:#fffaf0;border:1px solid rgba(251,173,38,.55);border-left:5px solid var(--gold);border-radius:14px;padding:12px;margin-top:10px;font-size:13px}
+.starter b{display:block;color:var(--navy);font-size:10px;letter-spacing:.11em;text-transform:uppercase;margin-bottom:4px}
+.coach-tip{background:var(--navy);color:#fff;border-left:5px solid var(--gold);border-radius:14px;padding:12px;margin-top:10px;font-size:13px}.coach-tip b{display:block;color:var(--gold);font-size:10px;letter-spacing:.11em;text-transform:uppercase;margin-bottom:4px}
+.controls{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-top:1px solid var(--line);background:#fff}
+.arrow{border:0;background:var(--blue);color:#fff;font-weight:800;border-radius:12px;padding:11px 16px;cursor:pointer}
+.arrow:disabled{opacity:.35;cursor:not-allowed}
+.counter{font-size:12px;color:var(--muted);font-weight:800;text-align:center}
+.dots{display:flex;gap:5px;justify-content:center;margin-top:4px}
+.dot{width:8px;height:8px;border-radius:50%;background:#cbd8e3}
+.dot.active{background:var(--gold)}
+.drawer{display:none;position:fixed;inset:0;background:rgba(0,48,84,.34);z-index:10;padding:18px}
+.drawer.show{display:flex;align-items:center;justify-content:center}
+.drawer-card{background:#fff;border-radius:22px;max-width:640px;width:100%;max-height:86vh;overflow:auto;box-shadow:var(--shadow);padding:18px}
+.drawer-card h2{font-size:24px}
+.toc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.toc-item{border:1px solid var(--line);background:#fff;border-radius:14px;padding:11px;text-align:left;cursor:pointer}
+.toc-item strong{display:block;color:var(--navy)}
+.toc-item span{display:block;color:var(--muted);font-size:12px}
+.close{float:right;border:0;background:var(--navy);color:#fff;border-radius:999px;width:32px;height:32px;cursor:pointer;font-weight:800}
+.flip{animation:flip .28s ease}
+@keyframes flip{from{opacity:.45;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
+
+.toc-btn:focus-visible,.industry-btn:focus-visible,.arrow:focus-visible,.toc-item:focus-visible,.close:focus-visible{outline:4px solid rgba(0,99,163,.35);outline-offset:3px}
+.arrow{min-height:48px;min-width:170px;display:inline-flex;align-items:center;justify-content:center;gap:6px;border:2px solid var(--blue);transition:transform .16s ease,box-shadow .16s ease,background .16s ease}
+.arrow:hover:not(:disabled){background:var(--navy);border-color:var(--navy);transform:translateY(-1px);box-shadow:0 7px 15px rgba(0,48,84,.18)}
+.toc-item:hover{border-color:var(--blue);background:#f7fbfe}
+.toc-item:focus-visible{border-color:var(--blue)}
+@keyframes arrowNudge{0%,72%,100%{transform:translateX(0)}82%{transform:translateX(5px)}90%{transform:translateX(1px)}}
+@media(prefers-reduced-motion:reduce){.toc-btn,.arrow,.flip,.toc-btn .toc-arrow{transition:none;animation:none}}
+
+@media(max-width:820px){.book-shell{grid-template-columns:1fr;min-height:auto}.page{padding:15px}h2{font-size:25px}.toolbar{padding:10px}.nav-top{width:100%;margin-top:10px}}
+@media(max-width:520px){.wrap{padding:8px}.hero{padding:16px}h1{font-size:27px}.industries{display:grid;grid-template-columns:repeat(2,1fr);width:100%}.industry-btn{width:100%}.toc-grid{grid-template-columns:1fr}.toc-btn{padding:16px}.toc-btn .toc-title{font-size:18px}.toc-btn .toc-arrow{width:50px;height:50px;font-size:29px}.controls{position:sticky;bottom:0;flex-wrap:wrap}.arrow{min-width:0;flex:1 1 42%;padding:10px}.counter{order:3;width:100%}}
+@media print{.toolbar,.controls,.drawer{display:none!important}.wrap{max-width:none;padding:0}.app{box-shadow:none;border:0}.book{background:#fff}.book-shell{page-break-after:always}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <main class="app" aria-label="Persona Intelligence Field Guide">
+    <section class="hero">
+      <div class="kicker">Persona Intelligence Field Guide</div>
+      <h1>Know the role. Hear the pressure.</h1>
+      <p>Use this flipbook as a call-prep guide. Choose an industry, flip through the personas, and connect what each role owns to the pressure, value lens, capability conversation, and discovery question to explore.</p>
+    </section>
+    <div class="toolbar">
+      <div class="industries" id="industries"></div>
+      <div class="nav-top">
+        <button class="toc-btn" id="tocBtn" aria-label="Open the Persona Index to jump directly to another customer role" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false">
+          <span class="toc-copy">
+            <span class="toc-eyebrow">Start Here</span><span class="toc-title">Browse Personas</span>
+            <span class="toc-subtitle">Jump directly to any customer role in the selected industry, or continue exploring with the Previous Persona and Next Persona buttons below each card.</span>
+          </span>
+          <span class="toc-arrow" aria-hidden="true">➜</span>
+        </button>
+      </div>
+    </div>
+    <section class="book" id="book" aria-live="polite">
+      <div class="book-shell" id="spread"></div>
+    </section>
+    <div class="controls">
+      <button class="arrow" id="prevBtn" aria-label="Previous persona">← <span id="prevLabel">Previous Persona</span></button>
+      <div class="counter"><span id="countText"></span><div class="dots" id="dots"></div></div>
+      <button class="arrow" id="nextBtn" aria-label="Next persona"><span id="nextLabel">Next Persona</span> →</button>
+    </div>
+  </main>
+</div>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-describedby="drawerDescription">
+  <div class="drawer-card"><button class="close" id="closeDrawer" aria-label="Close Persona Index">×</button><h2 id="drawerTitle">Persona Index</h2><p class="summary" id="drawerDescription">Jump to a persona in the current industry.</p><div class="toc-grid" id="tocGrid"></div></div>
+</div>
+<script>
+const guideData = {
+  "GC": {
+    "caps": [
+      "Financial Management",
+      "Design, Detailing & Modeling",
+      "Estimating & Takeoff",
+      "Project Management",
+      "Field Management",
+      "Scanning & Layout",
+      "HR Management",
+      "Subcontractor Compliance & Payments"
+    ],
+    "personas": [
+      {
+        "id": "cfo",
+        "name": "CFO / Controller",
+        "role": "Financial executive",
+        "summary": "Owns financial health, cash, risk, WIP, job cost confidence, and profitability across the GC portfolio.",
+        "owns": [
+          "Financial reporting and controls",
+          "Cash flow, margin, and profitability",
+          "WIP, job cost, payroll, and close accuracy",
+          "Risk visibility across projects"
+        ],
+        "kpis": [
+          "Margin variance",
+          "Cash flow",
+          "Forecast accuracy",
+          "WIP reliability",
+          "Days to close"
+        ],
+        "worries": [
+          "By the time I see the bad numbers, the project may already be too far along to recover margin.",
+          "Project teams often know risk before finance can see it in the system.",
+          "Manual handoffs create errors, slow the close, and weaken confidence in the forecast.",
+          "Forecasts feel subjective when project and financial data are not connected."
+        ],
+        "wants": [
+          "Current job cost visibility",
+          "Earlier warning signs of margin erosion",
+          "Connected financial and project data",
+          "Cleaner handoff between operations and accounting"
+        ],
+        "language": [
+          "forecast confidence",
+          "cash flow",
+          "job cost visibility",
+          "margin protection",
+          "WIP accuracy",
+          "risk exposure"
+        ],
+        "primary": [
+          "Financial Management"
+        ],
+        "related": [
+          "Project Management",
+          "HR Management",
+          "Subcontractor Compliance & Payments"
+        ],
+        "talk": "Value sounds like earlier financial visibility, cleaner project-to-accounting handoffs, and trusted forecasts before margin has already leaked.",
+        "check": {
+          "prompt": "A GC prospect says: 'We are winning work, but by the time finance sees the real job cost exposure, the field already made decisions we cannot unwind.'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "CFO / Controller",
+          "feedback": "The strongest lens is CFO / Controller. The clue is not just job cost. It is financial visibility arriving too late to prevent margin exposure. A PM may also care, but the statement is framed around finance seeing risk after operational decisions are already made."
+        }
+      },
+      {
+        "id": "owner",
+        "name": "Owner / Executive Leader",
+        "role": "Business owner or senior operator",
+        "summary": "Owns growth, profit, operational discipline, customer reputation, and whether the business can scale without chaos.",
+        "owns": [
+          "Growth and strategic direction",
+          "Profitability and operational discipline",
+          "Reputation with owners and subcontractors",
+          "Executive visibility across the business"
+        ],
+        "kpis": [
+          "Revenue growth",
+          "Gross margin",
+          "Backlog health",
+          "Project predictability",
+          "Customer retention"
+        ],
+        "worries": [
+          "We are growing, but the operating model is not scaling with the business.",
+          "Project surprises surface too late for leaders to make timely decisions.",
+          "Every team has a different version of performance, risk, and priority.",
+          "We can win the work, but inconsistent execution puts profit and reputation at risk."
+        ],
+        "wants": [
+          "A connected operating model",
+          "Better project predictability",
+          "Leadership visibility without chasing updates",
+          "Confidence the business can scale profitably"
+        ],
+        "language": [
+          "scale",
+          "predictability",
+          "operational control",
+          "executive visibility",
+          "growth without chaos",
+          "profit discipline"
+        ],
+        "primary": [
+          "Project Management",
+          "Financial Management"
+        ],
+        "related": [
+          "Estimating & Takeoff",
+          "Field Management",
+          "Subcontractor Compliance & Payments"
+        ],
+        "talk": "Value sounds like scalable operations, fewer surprises, and one reliable view of project and business performance.",
+        "check": {
+          "prompt": "A GC leader says: 'We keep adding work, but every region runs the business differently. I cannot tell whether growth is creating discipline or just more chaos.'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Owner / Executive Leader",
+          "feedback": "The strongest lens is Owner / Executive Leader. The clues are growth, regional consistency, operating discipline, and confidence that the business can scale without creating more chaos."
+        }
+      },
+      {
+        "id": "estimator",
+        "name": "Estimator / Preconstruction Lead",
+        "role": "Preconstruction",
+        "summary": "Owns bid accuracy, quantity confidence, speed to bid, assumptions, and the quality of the handoff from estimate to project execution.",
+        "owns": [
+          "Takeoff and estimate quality",
+          "Bid speed and competitiveness",
+          "Assumptions, alternates, and scope clarity",
+          "Handoff to operations after award"
+        ],
+        "kpis": [
+          "Bid volume",
+          "Win rate",
+          "Estimate accuracy",
+          "Bid-to-actual variance",
+          "Turnaround time"
+        ],
+        "worries": [
+          "I am asked to bid faster than the information can reasonably support.",
+          "A weak assumption in preconstruction becomes a margin problem during execution.",
+          "Drawing gaps slow the team down or force risky pricing decisions.",
+          "The project team may miss the assumptions that shaped the winning estimate."
+        ],
+        "wants": [
+          "Faster, more accurate takeoff",
+          "Clearer bid assumptions",
+          "Reduced rework in estimating",
+          "A cleaner estimate-to-project handoff"
+        ],
+        "language": [
+          "takeoff",
+          "quantity confidence",
+          "bid risk",
+          "assumptions",
+          "scope gaps",
+          "bought it wrong"
+        ],
+        "primary": [
+          "Estimating & Takeoff"
+        ],
+        "related": [
+          "Design, Detailing & Modeling",
+          "Project Management"
+        ],
+        "talk": "Value sounds like faster takeoff, stronger quantity confidence, clearer assumptions, and less margin risk created before the job even starts.",
+        "check": {
+          "prompt": "A preconstruction leader says: 'We can turn bids quickly, but when drawings are incomplete, the assumptions get buried and the project team inherits the risk.'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Estimator / Preconstruction Lead",
+          "feedback": "The strongest lens is Estimator / Preconstruction Lead. The clues are bid speed, incomplete drawings, estimate assumptions, and risk transferring from preconstruction into execution."
+        }
+      },
+      {
+        "id": "pm",
+        "name": "Project Manager",
+        "role": "Project execution",
+        "summary": "Owns the commercial health of the project after award: change, commitments, RFIs, schedule pressure, cost-to-complete, and owner communication.",
+        "owns": [
+          "Project budget and forecast",
+          "Change orders and commitments",
+          "RFIs, submittals, and documentation",
+          "Owner communication and project risk"
+        ],
+        "kpis": [
+          "Cost-to-complete accuracy",
+          "Change order cycle time",
+          "RFI/submittal turnaround",
+          "Schedule adherence",
+          "Margin at completion"
+        ],
+        "worries": [
+          "Change work happens before scope, cost, and approval are captured cleanly.",
+          "I am defending a forecast that may not reflect the latest project reality.",
+          "Project documents live in too many places for the team to trust the record.",
+          "Commitments and costs are not current enough to manage the project proactively."
+        ],
+        "wants": [
+          "Better change control",
+          "Reliable cost-to-complete visibility",
+          "A cleaner project record",
+          "Fewer surprises from field to finance"
+        ],
+        "language": [
+          "change order",
+          "forecast at completion",
+          "commitments",
+          "RFI",
+          "submittal",
+          "cost-to-complete"
+        ],
+        "primary": [
+          "Project Management"
+        ],
+        "related": [
+          "Financial Management",
+          "Field Management",
+          "Subcontractor Compliance & Payments"
+        ],
+        "talk": "Value sounds like tighter change control, a cleaner project record, reliable commitments, and cost-to-complete confidence while there is still time to act.",
+        "check": {
+          "prompt": "A project lead says: 'The work changed in the field, but by the time the cost, commitment, and owner approval are lined up, my forecast is already behind reality.'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Project Manager",
+          "feedback": "The strongest lens is Project Manager. The clues are change work, commitments, owner approval, forecast accuracy, and protecting the commercial health of the project after award."
+        }
+      },
+      {
+        "id": "super",
+        "name": "Superintendent",
+        "role": "Field execution",
+        "summary": "Owns the day-to-day reality of the jobsite: sequence, crews, safety, current drawings, trade coordination, and removing blockers.",
+        "owns": [
+          "Daily field coordination",
+          "Crew and trade sequencing",
+          "Current drawings and field documentation",
+          "Safety, quality, and issue escalation"
+        ],
+        "kpis": [
+          "Schedule adherence",
+          "Rework",
+          "Crew productivity",
+          "Safety incidents",
+          "Lookahead reliability"
+        ],
+        "worries": [
+          "The field loses time when crews work from outdated drawings or incomplete information.",
+          "Trades get stacked, productivity drops, and the schedule takes the hit.",
+          "Avoidable rework burns time, labor, and trust with the project team.",
+          "The office does not always see field blockers fast enough to help remove them."
+        ],
+        "wants": [
+          "Current drawings in the field",
+          "Faster issue escalation",
+          "Better trade coordination",
+          "Less avoidable rework"
+        ],
+        "language": [
+          "lookahead",
+          "crew",
+          "trade stacking",
+          "field issue",
+          "rework",
+          "current drawing"
+        ],
+        "primary": [
+          "Field Management"
+        ],
+        "related": [
+          "Project Management",
+          "Scanning & Layout"
+        ],
+        "talk": "Value sounds like current field information, fewer blockers, cleaner trade coordination, and less rework that damages schedule confidence.",
+        "check": {
+          "prompt": "A field leader says: 'The crew lost half a day because the drawing changed, the trade partner did not know, and the office did not see the blocker until later.'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Superintendent",
+          "feedback": "The strongest lens is Superintendent. The clues are crew time, current drawings, trade coordination, blockers, and the day-to-day jobsite impact of information gaps."
+        }
+      },
+      {
+        "id": "compliance",
+        "name": "HR / Compliance Leader",
+        "role": "People and risk operations",
+        "summary": "Owns workforce administration, compliance requirements, onboarding, payroll process integrity, and subcontractor risk workflows.",
+        "owns": [
+          "Workforce administration and HR processes",
+          "Compliance documentation",
+          "Payroll process integrity",
+          "Subcontractor onboarding and requirements"
+        ],
+        "kpis": [
+          "Onboarding time",
+          "Compliance completion",
+          "Payroll accuracy",
+          "Subcontractor risk status",
+          "Audit readiness"
+        ],
+        "worries": [
+          "Missing documentation often appears when the project is already under pressure.",
+          "Manual processes create compliance risk and make audit readiness harder to prove.",
+          "Payroll corrections take time away from higher-value workforce support.",
+          "Subcontractor requirements are difficult to track consistently across projects."
+        ],
+        "wants": [
+          "Cleaner onboarding",
+          "Reliable compliance visibility",
+          "Fewer manual corrections",
+          "Audit-ready documentation"
+        ],
+        "language": [
+          "compliance",
+          "onboarding",
+          "payroll accuracy",
+          "subcontractor requirements",
+          "audit",
+          "documentation"
+        ],
+        "primary": [
+          "HR Management",
+          "Subcontractor Compliance & Payments"
+        ],
+        "related": [
+          "Financial Management",
+          "Project Management"
+        ],
+        "talk": "Value sounds like less administrative friction, cleaner workforce and subcontractor records, fewer corrections, and stronger audit readiness.",
+        "check": {
+          "prompt": "A people operations leader says: 'We keep finding missing subcontractor and workforce documentation when the project is already moving, and then payroll and compliance teams are left cleaning it up.'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "HR / Compliance Leader",
+          "feedback": "The strongest lens is HR / Compliance Leader. The clues are workforce documentation, subcontractor requirements, payroll corrections, compliance visibility, and audit readiness."
+        }
+      }
+    ]
+  },
+  "Civil": {
+    "caps": [
+      "Financial Management",
+      "Project Management",
+      "Field Progress Tracking",
+      "Machine Control",
+      "Scheduling & Dispatching",
+      "Estimating & Takeoff",
+      "Equipment Maintenance"
+    ],
+    "personas": [
+      {
+        "id": "cfo_controller",
+        "name": "CFO / Controller",
+        "role": "Financial executive",
+        "summary": "Owns Cash flow, Job cost and WIP, and Equipment economics. Their lens is financial + production visibility.",
+        "owns": [
+          "Cash flow",
+          "Job cost and WIP",
+          "Equipment economics"
+        ],
+        "kpis": [
+          "Gross margin",
+          "Forecast variance",
+          "Equipment cost recovery"
+        ],
+        "worries": [
+          "Production loss reaches finance after the cost is already absorbed",
+          "Equipment cost is buried instead of tied to job performance",
+          "Forecast variance widens before leaders can explain why"
+        ],
+        "wants": [
+          "Current production-to-cost visibility and confidence in equipment economics.",
+          "A clearer path to answer: Where does production loss first show up financially: job cost, equipment cost, schedule variance, or cash flow?"
+        ],
+        "language": [
+          "production cost",
+          "equipment recovery",
+          "WIP",
+          "forecast variance"
+        ],
+        "primary": [
+          "Financial Management"
+        ],
+        "related": [
+          "Project Management",
+          "Field Progress Tracking"
+        ],
+        "talk": "Value sounds like current production-to-cost visibility and confidence in equipment economics. The capability conversation should start with where does production loss first show up financially: job cost, equipment cost, schedule variance, or cash flow?",
+        "check": {
+          "prompt": "A Civil prospect says: 'Can I see production risk before it becomes margin variance?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "CFO / Controller",
+          "feedback": "The strongest lens is CFO / Controller. The clue is the role-specific pressure around financial + production visibility. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "owner_operator",
+        "name": "Owner / Operator",
+        "role": "Business owner or senior operator",
+        "summary": "Owns Production performance, Fleet utilization, and Crew productivity. Their lens is production economics.",
+        "owns": [
+          "Production performance",
+          "Fleet utilization",
+          "Crew productivity"
+        ],
+        "kpis": [
+          "Production rate",
+          "Utilization",
+          "Rework"
+        ],
+        "worries": [
+          "Machines wait instead of producing revenue",
+          "Work is done twice because field conditions changed or layout was off",
+          "Fuel and labor disappear into nonproductive time"
+        ],
+        "wants": [
+          "More productive machine hours, less rework, and better field progress visibility.",
+          "A clearer path to answer: How much of a typical day is true production versus waiting or rework?"
+        ],
+        "language": [
+          "idle time",
+          "grade",
+          "stakes",
+          "machine hours"
+        ],
+        "primary": [
+          "Machine Control",
+          "Field Progress Tracking"
+        ],
+        "related": [
+          "Scheduling & Dispatching"
+        ],
+        "talk": "Value sounds like more productive machine hours, less rework, and better field progress visibility. The capability conversation should start with how much of a typical day is true production versus waiting or rework?",
+        "check": {
+          "prompt": "A Civil prospect says: 'Are crews and machines producing or waiting?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Owner / Operator",
+          "feedback": "The strongest lens is Owner / Operator. The clue is the role-specific pressure around production economics. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "estimator",
+        "name": "Estimator",
+        "role": "Preconstruction",
+        "summary": "Owns Quantities, Production assumptions, and Bid competitiveness. Their lens is production-aware bidding.",
+        "owns": [
+          "Quantities",
+          "Production assumptions",
+          "Bid competitiveness"
+        ],
+        "kpis": [
+          "Bid turnaround",
+          "Win rate",
+          "Quantity variance"
+        ],
+        "worries": [
+          "Production assumptions rely on tribal knowledge instead of actuals",
+          "Quantity uncertainty creates risk before work begins",
+          "Actual production data does not consistently improve future estimates"
+        ],
+        "wants": [
+          "Reliable quantities, better assumptions, and estimate-to-actual feedback.",
+          "A clearer path to answer: How do actual production rates make their way back into your next estimate?"
+        ],
+        "language": [
+          "quantities",
+          "production rate",
+          "bid risk",
+          "cut/fill"
+        ],
+        "primary": [
+          "Estimating & Takeoff"
+        ],
+        "related": [
+          "Field Progress Tracking",
+          "Project Management"
+        ],
+        "talk": "Value sounds like reliable quantities, better assumptions, and estimate-to-actual feedback. The capability conversation should start with how do actual production rates make their way back into your next estimate?",
+        "check": {
+          "prompt": "A Civil prospect says: 'Are we pricing the work the field will actually perform?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Estimator",
+          "feedback": "The strongest lens is Estimator. The clue is the role-specific pressure around production-aware bidding. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "project_manager",
+        "name": "Project Manager",
+        "role": "Project execution",
+        "summary": "Owns Budget and forecast, Schedule commitments, and Change documentation. Their lens is cost + progress control.",
+        "owns": [
+          "Budget and forecast",
+          "Schedule commitments",
+          "Change documentation"
+        ],
+        "kpis": [
+          "Cost-to-complete",
+          "Schedule variance",
+          "Change recovery"
+        ],
+        "worries": [
+          "Progress is reported after cost and schedule have already drifted",
+          "Change is hard to connect to cost impact",
+          "Owner reporting is manual when confidence matters most"
+        ],
+        "wants": [
+          "Current progress visibility, reliable cost-to-complete, and clear owner communication.",
+          "A clearer path to answer: When field progress changes, how quickly can you see the cost and schedule impact?"
+        ],
+        "language": [
+          "cost-to-complete",
+          "progress",
+          "change",
+          "schedule variance"
+        ],
+        "primary": [
+          "Project Management"
+        ],
+        "related": [
+          "Field Progress Tracking",
+          "Financial Management"
+        ],
+        "talk": "Value sounds like current progress visibility, reliable cost-to-complete, and clear owner communication. The capability conversation should start with when field progress changes, how quickly can you see the cost and schedule impact?",
+        "check": {
+          "prompt": "A Civil prospect says: 'Can I trust progress and cost at the same time?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Project Manager",
+          "feedback": "The strongest lens is Project Manager. The clue is the role-specific pressure around cost + progress control. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "equipment_fleet_manager",
+        "name": "Equipment / Fleet Manager",
+        "role": "Fleet and dispatch operations",
+        "summary": "Owns Fleet availability, Preventive maintenance, and Asset utilization. Their lens is asset productivity.",
+        "owns": [
+          "Fleet availability",
+          "Preventive maintenance",
+          "Asset utilization"
+        ],
+        "kpis": [
+          "Uptime",
+          "Utilization",
+          "Cost per hour"
+        ],
+        "worries": [
+          "Maintenance is reactive and disrupts production",
+          "Assets sit underused while other jobs wait",
+          "Downtime costs more than the repair ticket shows"
+        ],
+        "wants": [
+          "Planned maintenance, higher utilization, and better repair-versus-replace decisions.",
+          "A clearer path to answer: Do you know which machines are making money, sitting idle, or costing more than they should?"
+        ],
+        "language": [
+          "downtime",
+          "maintenance",
+          "utilization",
+          "cost per hour"
+        ],
+        "primary": [
+          "Equipment Maintenance"
+        ],
+        "related": [
+          "Scheduling & Dispatching",
+          "Financial Management"
+        ],
+        "talk": "Value sounds like planned maintenance, higher utilization, and better repair-versus-replace decisions. The capability conversation should start with do you know which machines are making money, sitting idle, or costing more than they should?",
+        "check": {
+          "prompt": "A Civil prospect says: 'Is the fleet available, utilized, and worth the cost?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Equipment / Fleet Manager",
+          "feedback": "The strongest lens is Equipment / Fleet Manager. The clue is the role-specific pressure around asset productivity. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "operations_dispatch_leader",
+        "name": "Operations / Dispatch Leader",
+        "role": "Fleet and dispatch operations",
+        "summary": "Owns Resource allocation, Dispatching, and Crew/equipment coordination. Their lens is resource flow.",
+        "owns": [
+          "Resource allocation",
+          "Dispatching",
+          "Crew/equipment coordination"
+        ],
+        "kpis": [
+          "Schedule attainment",
+          "Idle time",
+          "Crew utilization"
+        ],
+        "worries": [
+          "The right machine is on the wrong job when priorities shift",
+          "Crews wait because information and resources do not move together",
+          "Daily changes cascade across jobs before dispatch can rebalance"
+        ],
+        "wants": [
+          "Better resource visibility, faster dispatch decisions, and less waiting.",
+          "A clearer path to answer: What is the most common reason work waits: people, equipment, information, or changed priorities?"
+        ],
+        "language": [
+          "dispatch",
+          "mobilization",
+          "crew availability",
+          "machine location"
+        ],
+        "primary": [
+          "Scheduling & Dispatching"
+        ],
+        "related": [
+          "Field Progress Tracking",
+          "Equipment Maintenance"
+        ],
+        "talk": "Value sounds like better resource visibility, faster dispatch decisions, and less waiting. The capability conversation should start with what is the most common reason work waits: people, equipment, information, or changed priorities?",
+        "check": {
+          "prompt": "A Civil prospect says: 'Can the right people and equipment get to the right work?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Operations / Dispatch Leader",
+          "feedback": "The strongest lens is Operations / Dispatch Leader. The clue is the role-specific pressure around resource flow. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      }
+    ]
+  },
+  "Concrete": {
+    "caps": [
+      "Financial Management",
+      "Production Management",
+      "Material Management",
+      "Logistics & Delivery",
+      "Estimating & Takeoff",
+      "Project Management",
+      "Quality Management"
+    ],
+    "personas": [
+      {
+        "id": "cfo_controller",
+        "name": "CFO / Controller",
+        "role": "Financial executive",
+        "summary": "Owns Financial reporting, Cost and margin, and Production economics. Their lens is production + delivery cost.",
+        "owns": [
+          "Financial reporting",
+          "Cost and margin",
+          "Production economics"
+        ],
+        "kpis": [
+          "Gross margin",
+          "Material variance",
+          "Cost per unit"
+        ],
+        "worries": [
+          "Variance surfaces after cost is already baked into the job",
+          "Delivery inefficiency erodes margin one cycle at a time",
+          "Data does not reconcile cleanly across plant, fleet, and project"
+        ],
+        "wants": [
+          "Current cost visibility, material accountability, and reliable forecasting.",
+          "A clearer path to answer: Where does margin usually leak first: material, production, delivery, or jobsite waiting?"
+        ],
+        "language": [
+          "material variance",
+          "cost per unit",
+          "delivery cost",
+          "margin"
+        ],
+        "primary": [
+          "Financial Management"
+        ],
+        "related": [
+          "Production Management",
+          "Material Management"
+        ],
+        "talk": "Value sounds like current cost visibility, material accountability, and reliable forecasting. The capability conversation should start with where does margin usually leak first: material, production, delivery, or jobsite waiting?",
+        "check": {
+          "prompt": "A Concrete prospect says: 'Can I see where margin leaks between plant, delivery, and project?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "CFO / Controller",
+          "feedback": "The strongest lens is CFO / Controller. The clue is the role-specific pressure around production + delivery cost. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "owner_operator",
+        "name": "Owner / Operator",
+        "role": "Business owner or senior operator",
+        "summary": "Owns Business performance, Plant capacity, and Fleet performance. Their lens is plant + fleet performance.",
+        "owns": [
+          "Business performance",
+          "Plant capacity",
+          "Fleet performance"
+        ],
+        "kpis": [
+          "Margin",
+          "Volume",
+          "On-time delivery"
+        ],
+        "worries": [
+          "Margin is lost between plant production and placement",
+          "Demand peaks expose capacity problems before teams can adjust",
+          "Trucks and jobs wait while the day gets more expensive"
+        ],
+        "wants": [
+          "Predictable production/delivery, higher utilization, and profitable growth.",
+          "A clearer path to answer: Where does the day usually break down: production, trucks, jobsite readiness, or customer changes?"
+        ],
+        "language": [
+          "volume",
+          "plant capacity",
+          "truck cycle",
+          "customer delay"
+        ],
+        "primary": [
+          "Production Management",
+          "Logistics & Delivery"
+        ],
+        "related": [
+          "Financial Management"
+        ],
+        "talk": "Value sounds like predictable production/delivery, higher utilization, and profitable growth. The capability conversation should start with where does the day usually break down: production, trucks, jobsite readiness, or customer changes?",
+        "check": {
+          "prompt": "A Concrete prospect says: 'Can we deliver profitable volume without chaos?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Owner / Operator",
+          "feedback": "The strongest lens is Owner / Operator. The clue is the role-specific pressure around plant + fleet performance. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "estimator",
+        "name": "Estimator",
+        "role": "Preconstruction",
+        "summary": "Owns Takeoff, Cost assumptions, and Bid strategy. Their lens is quantity + cost assumptions.",
+        "owns": [
+          "Takeoff",
+          "Cost assumptions",
+          "Bid strategy"
+        ],
+        "kpis": [
+          "Bid speed",
+          "Win rate",
+          "Quantity variance"
+        ],
+        "worries": [
+          "Quantity uncertainty forces contingency before the bid is submitted",
+          "Material assumptions change faster than the estimate",
+          "Handoff loses context when production and delivery begin"
+        ],
+        "wants": [
+          "Reliable quantities, better assumptions, and faster bids.",
+          "A clearer path to answer: Which assumptions are hardest to validate once work begins: quantity, material, production, or delivery?"
+        ],
+        "language": [
+          "takeoff",
+          "yardage",
+          "mix",
+          "assumption"
+        ],
+        "primary": [
+          "Estimating & Takeoff"
+        ],
+        "related": [
+          "Financial Management",
+          "Project Management"
+        ],
+        "talk": "Value sounds like reliable quantities, better assumptions, and faster bids. The capability conversation should start with which assumptions are hardest to validate once work begins: quantity, material, production, or delivery?",
+        "check": {
+          "prompt": "A Concrete prospect says: 'Are we pricing concrete work with reliable assumptions?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Estimator",
+          "feedback": "The strongest lens is Estimator. The clue is the role-specific pressure around quantity + cost assumptions. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "production_manager",
+        "name": "Production Manager",
+        "role": "Production operations",
+        "summary": "Owns Production plan, Plant throughput, and Order readiness. Their lens is plant flow.",
+        "owns": [
+          "Production plan",
+          "Plant throughput",
+          "Order readiness"
+        ],
+        "kpis": [
+          "Throughput",
+          "Downtime",
+          "Waste"
+        ],
+        "worries": [
+          "Demand changes faster than the production plan",
+          "Downtime disrupts delivery commitments and customer confidence",
+          "Priorities drift when the plant and dispatch are out of sync"
+        ],
+        "wants": [
+          "Stable production flow, higher throughput, and less waste.",
+          "A clearer path to answer: What most often disrupts production flow: demand changes, material, downtime, or delivery timing?"
+        ],
+        "language": [
+          "batch",
+          "plant downtime",
+          "throughput",
+          "order readiness"
+        ],
+        "primary": [
+          "Production Management"
+        ],
+        "related": [
+          "Material Management",
+          "Logistics & Delivery"
+        ],
+        "talk": "Value sounds like stable production flow, higher throughput, and less waste. The capability conversation should start with what most often disrupts production flow: demand changes, material, downtime, or delivery timing?",
+        "check": {
+          "prompt": "A Concrete prospect says: 'Can production keep pace with real demand?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Production Manager",
+          "feedback": "The strongest lens is Production Manager. The clue is the role-specific pressure around plant flow. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "quality_manager",
+        "name": "Quality Manager",
+        "role": "Specification Confidence",
+        "summary": "Owns Quality records, Testing/specs, and Traceability. Their lens is specification confidence.",
+        "owns": [
+          "Quality records",
+          "Testing/specs",
+          "Traceability"
+        ],
+        "kpis": [
+          "Failure rate",
+          "Rejected loads",
+          "Test turnaround"
+        ],
+        "worries": [
+          "Quality data is disconnected when proof is needed quickly",
+          "Trends are found after failures instead of before them",
+          "Traceability is manual when accountability matters"
+        ],
+        "wants": [
+          "Connected quality records, faster issue detection, and reliable traceability.",
+          "A clearer path to answer: How quickly can you trace a quality issue back to the batch, material, process, or delivery condition?"
+        ],
+        "language": [
+          "test result",
+          "spec",
+          "rejected load",
+          "traceability"
+        ],
+        "primary": [
+          "Quality Management"
+        ],
+        "related": [
+          "Production Management",
+          "Material Management"
+        ],
+        "talk": "Value sounds like connected quality records, faster issue detection, and reliable traceability. The capability conversation should start with how quickly can you trace a quality issue back to the batch, material, process, or delivery condition?",
+        "check": {
+          "prompt": "A Concrete prospect says: 'Can we prove delivered material meets requirements?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Quality Manager",
+          "feedback": "The strongest lens is Quality Manager. The clue is the role-specific pressure around specification confidence. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "dispatch_logistics_manager",
+        "name": "Dispatch / Logistics Manager",
+        "role": "Fleet and dispatch operations",
+        "summary": "Owns Dispatch plan, Fleet coordination, and Delivery sequence. Their lens is delivery synchronization.",
+        "owns": [
+          "Dispatch plan",
+          "Fleet coordination",
+          "Delivery sequence"
+        ],
+        "kpis": [
+          "On-time delivery",
+          "Truck cycle time",
+          "Wait time"
+        ],
+        "worries": [
+          "Trucks queue at the plant or jobsite while cost accumulates",
+          "Schedule changes spread by phone and create confusion",
+          "Production and dispatch fall out of sync when the day changes"
+        ],
+        "wants": [
+          "Better dispatch decisions, shorter cycle time, and reliable customer communication.",
+          "A clearer path to answer: Where do trucks spend the most unproductive time: plant, transit, site, or waiting on changes?"
+        ],
+        "language": [
+          "dispatch",
+          "truck cycle",
+          "wait time",
+          "jobsite ready"
+        ],
+        "primary": [
+          "Logistics & Delivery"
+        ],
+        "related": [
+          "Production Management",
+          "Project Management"
+        ],
+        "talk": "Value sounds like better dispatch decisions, shorter cycle time, and reliable customer communication. The capability conversation should start with where do trucks spend the most unproductive time: plant, transit, site, or waiting on changes?",
+        "check": {
+          "prompt": "A Concrete prospect says: 'Can production, trucks, and jobsite readiness stay synchronized?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Dispatch / Logistics Manager",
+          "feedback": "The strongest lens is Dispatch / Logistics Manager. The clue is the role-specific pressure around delivery synchronization. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      }
+    ]
+  },
+  "Steel": {
+    "caps": [
+      "Financial & HR Management",
+      "Procurement & Inventory",
+      "Fabrication Management",
+      "Project Management",
+      "Engineering",
+      "Estimating & Takeoff",
+      "Detailing"
+    ],
+    "personas": [
+      {
+        "id": "cfo_controller",
+        "name": "CFO / Controller",
+        "role": "Financial executive",
+        "summary": "Owns Cash and working capital, Project margin, and Material and labor cost. Their lens is material + labor economics.",
+        "owns": [
+          "Cash and working capital",
+          "Project margin",
+          "Material and labor cost"
+        ],
+        "kpis": [
+          "Gross margin",
+          "Cash conversion",
+          "Material variance"
+        ],
+        "worries": [
+          "Material volatility changes the economics after assumptions are set",
+          "Inventory ties up cash before project value is realized",
+          "Fabrication inefficiency appears late in financial reporting"
+        ],
+        "wants": [
+          "Earlier cost visibility, better material control, and reliable labor forecasting.",
+          "A clearer path to answer: Where does margin risk usually enter first: material buyout, inventory, fabrication labor, or project execution?"
+        ],
+        "language": [
+          "material variance",
+          "inventory",
+          "labor efficiency",
+          "WIP"
+        ],
+        "primary": [
+          "Financial & HR Management"
+        ],
+        "related": [
+          "Procurement & Inventory",
+          "Fabrication Management"
+        ],
+        "talk": "Value sounds like earlier cost visibility, better material control, and reliable labor forecasting. The capability conversation should start with where does margin risk usually enter first: material buyout, inventory, fabrication labor, or project execution?",
+        "check": {
+          "prompt": "A Steel prospect says: 'Can I see material and fabrication risk before margin moves?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "CFO / Controller",
+          "feedback": "The strongest lens is CFO / Controller. The clue is the role-specific pressure around material + labor economics. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "owner_executive_leader",
+        "name": "Owner / Executive Leader",
+        "role": "Business owner or senior operator",
+        "summary": "Owns Backlog quality, Capacity, and Customer commitments. Their lens is throughput + backlog.",
+        "owns": [
+          "Backlog quality",
+          "Capacity",
+          "Customer commitments"
+        ],
+        "kpis": [
+          "Margin",
+          "Backlog",
+          "Throughput"
+        ],
+        "worries": [
+          "Bottlenecks move downstream before leadership can see the tradeoff",
+          "Engineering and shop priorities misalign when capacity is tight",
+          "Late material disrupts flow and customer commitments"
+        ],
+        "wants": [
+          "Predictable flow, capacity visibility, and profitable growth.",
+          "A clearer path to answer: Where does work most often get stuck between award and delivery?"
+        ],
+        "language": [
+          "backlog",
+          "capacity",
+          "throughput",
+          "bottleneck"
+        ],
+        "primary": [
+          "Project Management",
+          "Fabrication Management"
+        ],
+        "related": [
+          "Engineering"
+        ],
+        "talk": "Value sounds like predictable flow, capacity visibility, and profitable growth. The capability conversation should start with where does work most often get stuck between award and delivery?",
+        "check": {
+          "prompt": "A Steel prospect says: 'Can we scale without bottlenecks downstream?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Owner / Executive Leader",
+          "feedback": "The strongest lens is Owner / Executive Leader. The clue is the role-specific pressure around throughput + backlog. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "estimator",
+        "name": "Estimator",
+        "role": "Preconstruction",
+        "summary": "Owns Quantity takeoff, Material/labor assumptions, and Scope risk. Their lens is quantity + labor confidence.",
+        "owns": [
+          "Quantity takeoff",
+          "Material/labor assumptions",
+          "Scope risk"
+        ],
+        "kpis": [
+          "Bid speed",
+          "Win rate",
+          "Estimate variance"
+        ],
+        "worries": [
+          "Material assumptions age quickly in a volatile market",
+          "Labor complexity is hard to price before constructability is clear",
+          "Handoff loses the reasoning behind the number"
+        ],
+        "wants": [
+          "Reliable quantities, faster bid cycles, and clear assumptions.",
+          "A clearer path to answer: Which assumptions are hardest to protect after award: material, labor, schedule, or scope?"
+        ],
+        "language": [
+          "takeoff",
+          "tons",
+          "labor hours",
+          "material price"
+        ],
+        "primary": [
+          "Estimating & Takeoff"
+        ],
+        "related": [
+          "Engineering",
+          "Detailing"
+        ],
+        "talk": "Value sounds like reliable quantities, faster bid cycles, and clear assumptions. The capability conversation should start with which assumptions are hardest to protect after award: material, labor, schedule, or scope?",
+        "check": {
+          "prompt": "A Steel prospect says: 'Are we pricing the steel package with realistic assumptions?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Estimator",
+          "feedback": "The strongest lens is Estimator. The clue is the role-specific pressure around quantity + labor confidence. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "engineering_detailing_leader",
+        "name": "Engineering / Detailing Leader",
+        "role": "Constructible Information",
+        "summary": "Owns Engineering deliverables, Model coordination, and Revision control. Their lens is constructible information.",
+        "owns": [
+          "Engineering deliverables",
+          "Model coordination",
+          "Revision control"
+        ],
+        "kpis": [
+          "Drawing release",
+          "Revision rate",
+          "RFI volume"
+        ],
+        "worries": [
+          "Late changes ripple into procurement, shop flow, and erection",
+          "Conflicting information becomes shop rework",
+          "Release status is hard to see across downstream teams"
+        ],
+        "wants": [
+          "Coordinated models, controlled revisions, and less downstream rework.",
+          "A clearer path to answer: How do you know released work is truly ready for procurement and fabrication?"
+        ],
+        "language": [
+          "release",
+          "revision",
+          "detailing",
+          "model"
+        ],
+        "primary": [
+          "Engineering"
+        ],
+        "related": [
+          "Detailing",
+          "Project Management"
+        ],
+        "talk": "Value sounds like coordinated models, controlled revisions, and less downstream rework. The capability conversation should start with how do you know released work is truly ready for procurement and fabrication?",
+        "check": {
+          "prompt": "A Steel prospect says: 'Is released information ready for procurement, fabrication, and erection?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Engineering / Detailing Leader",
+          "feedback": "The strongest lens is Engineering / Detailing Leader. The clue is the role-specific pressure around constructible information. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "procurement_manager",
+        "name": "Procurement Manager",
+        "role": "Material Readiness",
+        "summary": "Owns Purchasing, Inventory, and Supplier performance. Their lens is material readiness.",
+        "owns": [
+          "Purchasing",
+          "Inventory",
+          "Supplier performance"
+        ],
+        "kpis": [
+          "Availability",
+          "Inventory turns",
+          "Expedite cost"
+        ],
+        "worries": [
+          "Inventory is unclear when purchasing decisions need confidence",
+          "Material arrives too early and ties up cash, or too late and blocks flow",
+          "Late procurement disrupts fabrication sequence"
+        ],
+        "wants": [
+          "Demand visibility, inventory confidence, and fewer expedites.",
+          "A clearer path to answer: What causes more pain: material arriving late, arriving too early, or not being visible?"
+        ],
+        "language": [
+          "inventory",
+          "purchase order",
+          "expedite",
+          "supplier"
+        ],
+        "primary": [
+          "Procurement & Inventory"
+        ],
+        "related": [
+          "Fabrication Management",
+          "Project Management"
+        ],
+        "talk": "Value sounds like demand visibility, inventory confidence, and fewer expedites. The capability conversation should start with what causes more pain: material arriving late, arriving too early, or not being visible?",
+        "check": {
+          "prompt": "A Steel prospect says: 'Can material be available without tying up unnecessary cash?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Procurement Manager",
+          "feedback": "The strongest lens is Procurement Manager. The clue is the role-specific pressure around material readiness. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "fabrication_manager",
+        "name": "Fabrication Manager",
+        "role": "Shop and fabrication operations",
+        "summary": "Owns Shop sequence, Labor productivity, and Capacity. Their lens is shop throughput.",
+        "owns": [
+          "Shop sequence",
+          "Labor productivity",
+          "Capacity"
+        ],
+        "kpis": [
+          "Throughput",
+          "Labor hours per ton",
+          "Rework"
+        ],
+        "worries": [
+          "Shop waits on information when capacity should be producing",
+          "Priorities change without clear downstream visibility",
+          "Rework consumes capacity that backlog already needs"
+        ],
+        "wants": [
+          "Stable production sequence, better capacity visibility, and higher throughput.",
+          "A clearer path to answer: What interrupts shop flow most often: missing information, missing material, rework, or priority changes?"
+        ],
+        "language": [
+          "shop sequence",
+          "work center",
+          "rework",
+          "capacity"
+        ],
+        "primary": [
+          "Fabrication Management"
+        ],
+        "related": [
+          "Detailing",
+          "Procurement & Inventory"
+        ],
+        "talk": "Value sounds like stable production sequence, better capacity visibility, and higher throughput. The capability conversation should start with what interrupts shop flow most often: missing information, missing material, rework, or priority changes?",
+        "check": {
+          "prompt": "A Steel prospect says: 'Can the shop produce the right work in the right sequence?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Fabrication Manager",
+          "feedback": "The strongest lens is Fabrication Manager. The clue is the role-specific pressure around shop throughput. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      }
+    ]
+  },
+  "Electrical": {
+    "caps": [
+      "Financial Management",
+      "Project Management",
+      "Field Management",
+      "Prefabrication",
+      "Service Management",
+      "Estimating & Takeoff",
+      "Design, Detailing & Modeling"
+    ],
+    "personas": [
+      {
+        "id": "cfo_controller",
+        "name": "CFO / Controller",
+        "role": "Financial executive",
+        "summary": "Owns Financial reporting, Labor cost, and WIP and cash. Their lens is labor + margin visibility.",
+        "owns": [
+          "Financial reporting",
+          "Labor cost",
+          "WIP and cash"
+        ],
+        "kpis": [
+          "Gross margin",
+          "Labor variance",
+          "WIP accuracy"
+        ],
+        "worries": [
+          "Labor overruns appear after margin is already under pressure",
+          "Project and service economics are hard to compare with confidence",
+          "WIP relies on inconsistent field updates"
+        ],
+        "wants": [
+          "Current labor visibility, reliable WIP, and confidence in productivity investments.",
+          "A clearer path to answer: How quickly can you see when labor productivity is drifting from plan?"
+        ],
+        "language": [
+          "labor burn",
+          "WIP",
+          "cash flow",
+          "variance"
+        ],
+        "primary": [
+          "Financial Management"
+        ],
+        "related": [
+          "Project Management",
+          "Field Management"
+        ],
+        "talk": "Value sounds like current labor visibility, reliable WIP, and confidence in productivity investments. The capability conversation should start with how quickly can you see when labor productivity is drifting from plan?",
+        "check": {
+          "prompt": "An Electrical prospect says: 'Can I see labor risk before it hits margin?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "CFO / Controller",
+          "feedback": "The strongest lens is CFO / Controller. The clue is the role-specific pressure around labor + margin visibility. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "owner_executive_leader",
+        "name": "Owner / Executive Leader",
+        "role": "Business owner or senior operator",
+        "summary": "Owns Growth strategy, Backlog quality, and Labor capacity. Their lens is labor leverage + growth.",
+        "owns": [
+          "Growth strategy",
+          "Backlog quality",
+          "Labor capacity"
+        ],
+        "kpis": [
+          "Margin",
+          "Backlog",
+          "Revenue per employee"
+        ],
+        "worries": [
+          "Growth is constrained by scarce skilled labor",
+          "Teams work differently from project to project",
+          "Service and project operations feel disconnected"
+        ],
+        "wants": [
+          "Scalable operations, better labor leverage, and predictable delivery.",
+          "A clearer path to answer: Where is skilled labor limiting growth the most?"
+        ],
+        "language": [
+          "labor shortage",
+          "scale",
+          "backlog",
+          "service growth"
+        ],
+        "primary": [
+          "Project Management",
+          "Prefabrication"
+        ],
+        "related": [
+          "Service Management"
+        ],
+        "talk": "Value sounds like scalable operations, better labor leverage, and predictable delivery. The capability conversation should start with where is skilled labor limiting growth the most?",
+        "check": {
+          "prompt": "An Electrical prospect says: 'Can we grow output without adding the same amount of labor?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Owner / Executive Leader",
+          "feedback": "The strongest lens is Owner / Executive Leader. The clue is the role-specific pressure around labor leverage + growth. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "estimator",
+        "name": "Estimator",
+        "role": "Preconstruction",
+        "summary": "Owns Takeoff, Labor/material assumptions, and Scope review. Their lens is labor unit confidence.",
+        "owns": [
+          "Takeoff",
+          "Labor/material assumptions",
+          "Scope review"
+        ],
+        "kpis": [
+          "Bid speed",
+          "Win rate",
+          "Labor variance"
+        ],
+        "worries": [
+          "Design changes create takeoff rework before the bid stabilizes",
+          "Labor units do not reflect field reality",
+          "Material pricing changes faster than assumptions can be refreshed"
+        ],
+        "wants": [
+          "Faster takeoff, better labor assumptions, and clear scope.",
+          "A clearer path to answer: Which assumption is hardest to trust after award: labor, material, design, or scope?"
+        ],
+        "language": [
+          "takeoff",
+          "labor unit",
+          "rough-in",
+          "scope"
+        ],
+        "primary": [
+          "Estimating & Takeoff"
+        ],
+        "related": [
+          "Design, Detailing & Modeling",
+          "Project Management"
+        ],
+        "talk": "Value sounds like faster takeoff, better labor assumptions, and clear scope. The capability conversation should start with which assumption is hardest to trust after award: labor, material, design, or scope?",
+        "check": {
+          "prompt": "An Electrical prospect says: 'Are we pricing install with realistic labor assumptions?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Estimator",
+          "feedback": "The strongest lens is Estimator. The clue is the role-specific pressure around labor unit confidence. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "vdc_design_leader",
+        "name": "VDC / Design Leader",
+        "role": "Install-Ready Design",
+        "summary": "Owns Model coordination, Constructible design, and Design handoff. Their lens is install-ready design.",
+        "owns": [
+          "Model coordination",
+          "Constructible design",
+          "Design handoff"
+        ],
+        "kpis": [
+          "Clash rate",
+          "Drawing release",
+          "Prefab readiness"
+        ],
+        "worries": [
+          "Models are coordinated but not always fabrication-ready",
+          "Late changes disrupt prefab and field sequence",
+          "Field teams improvise when the model does not translate into installable work"
+        ],
+        "wants": [
+          "Constructible models, stable release flow, and less field rework.",
+          "A clearer path to answer: What makes a model truly ready for prefab or field installation?"
+        ],
+        "language": [
+          "model",
+          "clash",
+          "prefab-ready",
+          "routing"
+        ],
+        "primary": [
+          "Design, Detailing & Modeling"
+        ],
+        "related": [
+          "Prefabrication",
+          "Field Management"
+        ],
+        "talk": "Value sounds like constructible models, stable release flow, and less field rework. The capability conversation should start with what makes a model truly ready for prefab or field installation?",
+        "check": {
+          "prompt": "An Electrical prospect says: 'Can coordinated models become installable work?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "VDC / Design Leader",
+          "feedback": "The strongest lens is VDC / Design Leader. The clue is the role-specific pressure around install-ready design. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "project_manager",
+        "name": "Project Manager",
+        "role": "Project execution",
+        "summary": "Owns Budget and forecast, Labor planning, and Change management. Their lens is labor-to-progress control.",
+        "owns": [
+          "Budget and forecast",
+          "Labor planning",
+          "Change management"
+        ],
+        "kpis": [
+          "Labor productivity",
+          "Cost-to-complete",
+          "Change recovery"
+        ],
+        "worries": [
+          "Labor burn gets ahead of percent complete before the forecast shows it",
+          "Material arrives out of sequence and slows crews",
+          "Change is hard to capture while work keeps moving"
+        ],
+        "wants": [
+          "Current labor/progress visibility, better coordination, and forecast confidence.",
+          "A clearer path to answer: Where do you lose visibility first: labor burn, installed progress, material readiness, or change impact?"
+        ],
+        "language": [
+          "labor burn",
+          "percent complete",
+          "change",
+          "material readiness"
+        ],
+        "primary": [
+          "Project Management"
+        ],
+        "related": [
+          "Field Management",
+          "Prefabrication"
+        ],
+        "talk": "Value sounds like current labor/progress visibility, better coordination, and forecast confidence. The capability conversation should start with where do you lose visibility first: labor burn, installed progress, material readiness, or change impact?",
+        "check": {
+          "prompt": "An Electrical prospect says: 'Can I see whether labor burn matches installed progress?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Project Manager",
+          "feedback": "The strongest lens is Project Manager. The clue is the role-specific pressure around labor-to-progress control. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "field_superintendent_foreman",
+        "name": "Field Superintendent / Foreman",
+        "role": "Field execution",
+        "summary": "Owns Crew plan, Installation sequence, and Material readiness. Their lens is install-ready work.",
+        "owns": [
+          "Crew plan",
+          "Installation sequence",
+          "Material readiness"
+        ],
+        "kpis": [
+          "Installed units",
+          "Labor productivity",
+          "Plan completion"
+        ],
+        "worries": [
+          "Crews wait on material or answers while the schedule keeps moving",
+          "Work packages are incomplete when crews need to install",
+          "Field changes create rework and lost labor hours"
+        ],
+        "wants": [
+          "Install-ready work, fewer blockers, and better crew productivity.",
+          "A clearer path to answer: What keeps your crew from installing: information, material, access, or decisions?"
+        ],
+        "language": [
+          "crew",
+          "install",
+          "work package",
+          "material",
+          "blocker"
+        ],
+        "primary": [
+          "Field Management"
+        ],
+        "related": [
+          "Prefabrication",
+          "Design, Detailing & Modeling"
+        ],
+        "talk": "Value sounds like install-ready work, fewer blockers, and better crew productivity. The capability conversation should start with what keeps your crew from installing: information, material, access, or decisions?",
+        "check": {
+          "prompt": "An Electrical prospect says: 'Does the crew have install-ready information and material?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Field Superintendent / Foreman",
+          "feedback": "The strongest lens is Field Superintendent / Foreman. The clue is the role-specific pressure around install-ready work. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      }
+    ]
+  },
+  "Mechanical": {
+    "caps": [
+      "Financial Management",
+      "Project Management",
+      "Fabrication Management",
+      "Service Management",
+      "Estimating & Takeoff",
+      "Design, Detailing & Modeling",
+      "HR Management"
+    ],
+    "personas": [
+      {
+        "id": "cfo_controller",
+        "name": "CFO / Controller",
+        "role": "Financial executive",
+        "summary": "Owns Financial controls, Labor/fabrication cost, and Project/service profitability. Their lens is shop + field economics.",
+        "owns": [
+          "Financial controls",
+          "Labor/fabrication cost",
+          "Project/service profitability"
+        ],
+        "kpis": [
+          "Gross margin",
+          "Labor variance",
+          "WIP accuracy"
+        ],
+        "worries": [
+          "Shop and field labor are hard to reconcile before margin moves",
+          "Fabrication inefficiency appears late in project financials",
+          "Service and project profitability tell different stories"
+        ],
+        "wants": [
+          "Current cost visibility, reliable labor economics, and forecast confidence.",
+          "A clearer path to answer: Where is financial visibility weakest: shop labor, field labor, project progress, or service work?"
+        ],
+        "language": [
+          "fabrication productivity",
+          "labor variance",
+          "WIP",
+          "service margin"
+        ],
+        "primary": [
+          "Financial Management"
+        ],
+        "related": [
+          "Project Management",
+          "Fabrication Management"
+        ],
+        "talk": "Value sounds like current cost visibility, reliable labor economics, and forecast confidence. The capability conversation should start with where is financial visibility weakest: shop labor, field labor, project progress, or service work?",
+        "check": {
+          "prompt": "A Mechanical prospect says: 'Can I connect fabrication, field labor, and service profitability?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "CFO / Controller",
+          "feedback": "The strongest lens is CFO / Controller. The clue is the role-specific pressure around shop + field economics. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "owner_executive_leader",
+        "name": "Owner / Executive Leader",
+        "role": "Business owner or senior operator",
+        "summary": "Owns Growth strategy, Labor capacity, and Shop utilization. Their lens is labor leverage + shop capacity.",
+        "owns": [
+          "Growth strategy",
+          "Labor capacity",
+          "Shop utilization"
+        ],
+        "kpis": [
+          "Margin",
+          "Backlog",
+          "Shop utilization"
+        ],
+        "worries": [
+          "Skilled labor limits growth before demand does",
+          "The shop can become an advantage or a bottleneck depending on flow",
+          "Projects and service operate separately when the business needs leverage"
+        ],
+        "wants": [
+          "Better labor leverage, predictable shop-to-field flow, and scalable operations.",
+          "A clearer path to answer: Where does growth get constrained first: design, fabrication, field labor, or service capacity?"
+        ],
+        "language": [
+          "shop capacity",
+          "labor shortage",
+          "growth",
+          "utilization"
+        ],
+        "primary": [
+          "Fabrication Management",
+          "Project Management"
+        ],
+        "related": [
+          "Service Management"
+        ],
+        "talk": "Value sounds like better labor leverage, predictable shop-to-field flow, and scalable operations. The capability conversation should start with where does growth get constrained first: design, fabrication, field labor, or service capacity?",
+        "check": {
+          "prompt": "A Mechanical prospect says: 'Can the shop become an advantage instead of a bottleneck?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Owner / Executive Leader",
+          "feedback": "The strongest lens is Owner / Executive Leader. The clue is the role-specific pressure around labor leverage + shop capacity. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "estimator",
+        "name": "Estimator",
+        "role": "Preconstruction",
+        "summary": "Owns Takeoff, Labor assumptions, and Fabrication assumptions. Their lens is fabrication-aware bidding.",
+        "owns": [
+          "Takeoff",
+          "Labor assumptions",
+          "Fabrication assumptions"
+        ],
+        "kpis": [
+          "Bid speed",
+          "Win rate",
+          "Labor variance"
+        ],
+        "worries": [
+          "Complex systems are hard to quantify consistently",
+          "Fabrication assumptions are not always reflected in the estimate",
+          "Handoff loses build strategy context after award"
+        ],
+        "wants": [
+          "Reliable quantities, better labor assumptions, and fabrication-aware estimates.",
+          "A clearer path to answer: How often does the fabrication strategy change after the estimate is built?"
+        ],
+        "language": [
+          "takeoff",
+          "spool",
+          "labor unit",
+          "fabrication assumption"
+        ],
+        "primary": [
+          "Estimating & Takeoff"
+        ],
+        "related": [
+          "Design, Detailing & Modeling",
+          "Fabrication Management"
+        ],
+        "talk": "Value sounds like reliable quantities, better labor assumptions, and fabrication-aware estimates. The capability conversation should start with how often does the fabrication strategy change after the estimate is built?",
+        "check": {
+          "prompt": "A Mechanical prospect says: 'Are we estimating work the way we will actually build it?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Estimator",
+          "feedback": "The strongest lens is Estimator. The clue is the role-specific pressure around fabrication-aware bidding. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "vdc_detailing_leader",
+        "name": "VDC / Detailing Leader",
+        "role": "Fabrication-Ready Information",
+        "summary": "Owns Model coordination, Detailing/spooling, and Release planning. Their lens is fabrication-ready information.",
+        "owns": [
+          "Model coordination",
+          "Detailing/spooling",
+          "Release planning"
+        ],
+        "kpis": [
+          "Spool release",
+          "Revision rate",
+          "Fabrication readiness"
+        ],
+        "worries": [
+          "Late coordination disrupts fabrication after shop plans are set",
+          "Released work is not always sequenced for production",
+          "Revisions create rework across shop and field"
+        ],
+        "wants": [
+          "Stable coordinated models, sequence-aware release, and less rework.",
+          "A clearer path to answer: How do you decide what is ready for the shop versus what still carries risk?"
+        ],
+        "language": [
+          "spool",
+          "model",
+          "release",
+          "revision"
+        ],
+        "primary": [
+          "Design, Detailing & Modeling"
+        ],
+        "related": [
+          "Fabrication Management",
+          "Project Management"
+        ],
+        "talk": "Value sounds like stable coordinated models, sequence-aware release, and less rework. The capability conversation should start with how do you decide what is ready for the shop versus what still carries risk?",
+        "check": {
+          "prompt": "A Mechanical prospect says: 'Can the model release support shop and field sequence?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "VDC / Detailing Leader",
+          "feedback": "The strongest lens is VDC / Detailing Leader. The clue is the role-specific pressure around fabrication-ready information. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "fabrication_manager",
+        "name": "Fabrication Manager",
+        "role": "Shop and fabrication operations",
+        "summary": "Owns Production sequence, Shop labor, and Capacity. Their lens is shop flow.",
+        "owns": [
+          "Production sequence",
+          "Shop labor",
+          "Capacity"
+        ],
+        "kpis": [
+          "Throughput",
+          "Labor hours",
+          "Rework"
+        ],
+        "worries": [
+          "Shop waits on drawings or material when capacity should be producing",
+          "Priorities change without visibility into field need",
+          "Field and shop sequence drift apart"
+        ],
+        "wants": [
+          "Stable production flow, capacity visibility, and alignment with field need.",
+          "A clearer path to answer: What interrupts shop flow most often: drawings, material, rework, or priority changes?"
+        ],
+        "language": [
+          "shop sequence",
+          "throughput",
+          "material ready",
+          "rework"
+        ],
+        "primary": [
+          "Fabrication Management"
+        ],
+        "related": [
+          "Design, Detailing & Modeling",
+          "Project Management"
+        ],
+        "talk": "Value sounds like stable production flow, capacity visibility, and alignment with field need. The capability conversation should start with what interrupts shop flow most often: drawings, material, rework, or priority changes?",
+        "check": {
+          "prompt": "A Mechanical prospect says: 'Can we produce the right assemblies in the right sequence?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Fabrication Manager",
+          "feedback": "The strongest lens is Fabrication Manager. The clue is the role-specific pressure around shop flow. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      },
+      {
+        "id": "service_manager",
+        "name": "Service Manager",
+        "role": "Service operations",
+        "summary": "Owns Dispatch, Technician productivity, and Service agreements. Their lens is recurring customer value.",
+        "owns": [
+          "Dispatch",
+          "Technician productivity",
+          "Service agreements"
+        ],
+        "kpis": [
+          "Response time",
+          "First-time fix",
+          "Utilization"
+        ],
+        "worries": [
+          "The right technician is not always assigned to the right work",
+          "Prior history is hard to find when the customer needs speed",
+          "Emergency work disrupts the planned service day"
+        ],
+        "wants": [
+          "Smarter dispatch, higher utilization, better service history, and profitable recurring relationships.",
+          "A clearer path to answer: What prevents a first-time fix: technician match, parts, history, access, or diagnosis?"
+        ],
+        "language": [
+          "dispatch",
+          "technician",
+          "first-time fix",
+          "agreement"
+        ],
+        "primary": [
+          "Service Management"
+        ],
+        "related": [
+          "Financial Management",
+          "HR Management"
+        ],
+        "talk": "Value sounds like smarter dispatch, higher utilization, better service history, and profitable recurring relationships. The capability conversation should start with what prevents a first-time fix: technician match, parts, history, access, or diagnosis?",
+        "check": {
+          "prompt": "A Mechanical prospect says: 'Can we respond faster and keep service profitable?'",
+          "question": "Which persona is most directly accountable for the business pressure in this statement?",
+          "answer": "Service Manager",
+          "feedback": "The strongest lens is Service Manager. The clue is the role-specific pressure around recurring customer value. Listen for what they own, how they are measured, and the consequence they are trying to avoid before naming a capability."
+        }
+      }
+    ]
+  }
+};
+let industry = Object.keys(guideData)[0];
+let index = 0;
+const $ = id => document.getElementById(id);
+function list(items){return '<ul>'+items.map(x=>`<li>${x}</li>`).join('')+'</ul>';}
+function renderIndustries(){
+  $('industries').innerHTML = Object.keys(guideData).map(k=>`<button class="industry-btn ${k===industry?'active':''}" data-ind="${k}" aria-pressed="${k===industry}">${k}</button>`).join('');
+  document.querySelectorAll('.industry-btn').forEach(b=>b.onclick=()=>{industry=b.dataset.ind;index=0;render();});
+}
+function discoveryQuestion(p){
+  const clearer=(p.wants||[]).find(x=>x.includes("A clearer path to answer:"));
+  if(clearer) return clearer.split("A clearer path to answer:")[1].trim();
+  const want=(p.wants&&p.wants[0])?p.wants[0].toLowerCase().replace(/\.$/,''):'the outcome this role needs to protect';
+  return `What would give you more confidence in ${want}, and where does the current process make that hardest?`;
+}
+function coachTip(p){
+  const n=p.name;
+  if(/CFO|Controller/.test(n)) return "When finance names a symptom, ask what operational event caused it and when the business first had enough information to act.";
+  if(/Owner|Executive/.test(n)) return "Ask which decision they cannot make confidently today and what the delay costs the business.";
+  if(/Estimator/.test(n)) return "Ask what uncertainty is being carried into the bid and where that assumption becomes risky after award.";
+  if(/Project Manager/.test(n)) return "Ask what changed first and where that change failed to reach the project record.";
+  if(/Superintendent|Foreman|Field/.test(n)) return "Ask what signal, material, information, or decision was missing before productive work stopped.";
+  if(/Dispatch|Operations/.test(n)) return "Ask what changed first and how quickly people, equipment, and priorities could be rebalanced.";
+  if(/Fleet|Equipment/.test(n)) return "Connect downtime and utilization to job cost, production impact, and asset decisions.";
+  if(/Quality/.test(n)) return "Ask how quickly the issue can be traced to the material, process, batch, or delivery condition.";
+  if(/Production|Fabrication/.test(n)) return "Ask what interrupted flow first: information, material, labor, capacity, or priority changes.";
+  if(/Procurement/.test(n)) return "Ask when demand becomes visible and what purchasing decisions are still being made manually.";
+  if(/VDC|Design|Engineering|Detailing/.test(n)) return "Ask what makes the information truly ready for downstream fabrication, installation, or field execution.";
+  if(/HR|Compliance/.test(n)) return "Ask when the information gap becomes visible and what work is already at risk by then.";
+  if(/Service/.test(n)) return "Ask where scheduling, technician capacity, customer history, or work information breaks down.";
+  return "Ask what changed first, who felt the impact, and where the business lost visibility or control.";
+}
+function cleanSummary(summary){
+  const match=summary.match(/^Owns .*?\. Their lens is (.+)\.$/i);
+  return match ? `Views the business through a ${match[1]} lens.` : summary;
+}
+function renderSpread(){
+  const personas = guideData[industry].personas; const p = personas[index];
+  const caps = [...p.primary.map(x=>`<span class="chip primary">${x}</span>`), ...p.related.map(x=>`<span class="chip">${x}</span>`)].join('');
+  $('spread').innerHTML = `
+    <article class="page left">
+      <div class="page-label">Know the person · ${industry}</div>
+      <div class="role">${p.role}</div><h2>${p.name}</h2><p class="summary">${cleanSummary(p.summary)}</p>
+      <div class="section"><h3>What they own</h3>${list(p.owns)}</div>
+      <div class="section"><h3>How they are measured</h3>${list(p.kpis)}</div>
+      <div class="quote"><b>Listen For</b>${p.language.join(' · ')}</div>
+    </article>
+    <article class="page right">
+      <div class="page-label">Read the opportunity</div>
+      <div class="section"><h3>What keeps them up at night</h3>${list(p.worries)}</div>
+      <div class="section"><h3>What they want confidence around</h3>${list(p.wants)}</div>
+      <div class="quote"><b>Value lens</b>${p.talk}</div>
+      <div class="section"><h3>Capability Conversation Areas</h3><div class="chips">${caps}</div></div>
+      <div class="starter"><b>Discovery Question to Explore</b><span style="display:block;color:#5c6d7c;font-size:12px;margin-bottom:6px">Use this as a starting point, not a script. Listen to how the customer describes the issue, then follow the pressure.</span>${discoveryQuestion(p)}</div>
+      <div class="coach-tip"><b>Coach's Tip</b>${coachTip(p)}</div>
+    </article>`;
+  $('spread').classList.remove('flip'); void $('spread').offsetWidth; $('spread').classList.add('flip');
+}
+function renderControls(){
+  const personas=guideData[industry].personas;
+  const len=personas.length;
+  const prev=personas[index-1];
+  const next=personas[index+1];
+  $('prevBtn').disabled=index===0;
+  $('nextBtn').disabled=index===len-1;
+  $('prevLabel').textContent=prev ? prev.name : 'Previous Persona';
+  $('nextLabel').textContent=next ? next.name : 'Next Persona';
+  $('prevBtn').setAttribute('aria-label',prev ? `Previous persona: ${prev.name}` : 'No previous persona');
+  $('nextBtn').setAttribute('aria-label',next ? `Next persona: ${next.name}` : 'No next persona');
+  $('countText').textContent=`${industry} · ${personas[index].name} · ${index+1} of ${len}`;
+  $('dots').innerHTML = Array.from({length:len},(_,i)=>`<span class="dot ${i===index?'active':''}" aria-hidden="true"></span>`).join('');
+}
+function renderToc(){
+  $('tocGrid').innerHTML = guideData[industry].personas.map((p,i)=>`<button class="toc-item" data-i="${i}"><strong>${p.name}</strong><span>${p.role}</span></button>`).join('');
+  document.querySelectorAll('.toc-item').forEach(b=>b.onclick=()=>{index=+b.dataset.i; $('drawer').classList.remove('show'); $('tocBtn').setAttribute('aria-expanded','false'); document.body.style.overflow=''; render(); $('book').focus?.();});
+}
+function render(){renderIndustries();renderSpread();renderControls();renderToc();}
+$('prevBtn').onclick=()=>{if(index>0){index--;render();}};
+$('nextBtn').onclick=()=>{if(index<guideData[industry].personas.length-1){index++;render();}};
+
+function openDrawer(){
+  $('drawer').classList.add('show');
+  $('tocBtn').setAttribute('aria-expanded','true');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>{const first=$('tocGrid').querySelector('.toc-item');(first||$('closeDrawer')).focus();},0);
+}
+function closeDrawer(){
+  $('drawer').classList.remove('show');
+  $('tocBtn').setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+  $('tocBtn').focus();
+}
+$('tocBtn').onclick=openDrawer;
+$('closeDrawer').onclick=closeDrawer;
+$('drawer').addEventListener('click',e=>{if(e.target.id==='drawer')closeDrawer();});
+document.addEventListener('keydown',e=>{
+  const drawerOpen=$('drawer').classList.contains('show');
+  if(e.key==='Escape'&&drawerOpen){closeDrawer();return;}
+  if(!drawerOpen&&e.key==='ArrowRight')$('nextBtn').click();
+  if(!drawerOpen&&e.key==='ArrowLeft')$('prevBtn').click();
+});
+let startX=null; $('book').addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true}); $('book').addEventListener('touchend',e=>{if(startX===null)return;let dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>45){dx<0?$('nextBtn').click():$('prevBtn').click();}startX=null;},{passive:true});
+render();
+</script>
+</body>
+</html>
